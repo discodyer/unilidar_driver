@@ -1,0 +1,3 @@
+[submodule "3rdparty/serial"]
+	path = 3rdparty/serial
+	url = https://github.com/discodyer/serial.git
