@@ -36,7 +36,7 @@ Open source C++ driver for Unitree Lidar L2.
 
 ```bash
 # Cloning repository
-git clone https://github.com/discodyer/unilidar_driver.git
+git clone https://github.com/discodyer/unilidar_driver.git --recurse-submodules
 cd unilidar_driver
 
 # Create build directory
