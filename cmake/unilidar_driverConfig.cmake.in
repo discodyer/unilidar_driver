@@ -1,0 +1,16 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# Find dependencies
+# If your library depends on other packages, add them here
+# Example: find_dependency(Boost REQUIRED)
+
+# Include the targets file
+include("${CMAKE_CURRENT_LIST_DIR}/unilidar_driverTargets.cmake")
+
+# Provide legacy variables for backward compatibility
+set(unilidar_driver_LIBRARIES unilidar_driver::unilidar_driver)
+get_target_property(unilidar_driver_INCLUDE_DIRS unilidar_driver::unilidar_driver INTERFACE_INCLUDE_DIRECTORIES)
+
+check_required_components(unilidar_driver)

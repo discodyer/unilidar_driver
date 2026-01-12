@@ -32,11 +32,13 @@ else()
 endif()
 
 # Include directories
-target_include_directories(${PROJECT_NAME} PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+target_include_directories(${PROJECT_NAME} 
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
     PRIVATE
-    ${CMAKE_SOURCE_DIR}/3rdparty/serial/include
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/3rdparty/serial/include>
 )
 
 # Link libraries
@@ -104,4 +106,56 @@ install(TARGETS set_to_serial_mode
 
 install(TARGETS set_to_udp_mode
     RUNTIME DESTINATION bin
+)
+
+# Install headers
+install(DIRECTORY include/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp"
+)
+
+# Install serial headers (if needed by your public API)
+install(DIRECTORY 3rdparty/serial/include/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp"
+)
+
+# Generate and install CMake config files
+include(CMakePackageConfigHelpers)
+
+# Generate the config file that includes the exports
+configure_package_config_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/unilidar_driverConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/unilidar_driverConfig.cmake
+    INSTALL_DESTINATION lib/cmake/unilidar_driver
+)
+
+# Generate the version file
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/unilidar_driverConfigVersion.cmake
+    VERSION 1.0.0
+    COMPATIBILITY AnyNewerVersion
+)
+
+# Install the config and version files
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/unilidar_driverConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/unilidar_driverConfigVersion.cmake
+    DESTINATION lib/cmake/unilidar_driver
+)
+
+# Export targets
+install(EXPORT unilidar_driverTargets
+    FILE unilidar_driverTargets.cmake
+    NAMESPACE unilidar_driver::
+    DESTINATION lib/cmake/unilidar_driver
+)
+
+# Modify the library install to include export
+install(TARGETS unilidar_driver serial
+    EXPORT unilidar_driverTargets
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+    INCLUDES DESTINATION include
 )
