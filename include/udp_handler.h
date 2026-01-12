@@ -2,22 +2,21 @@
  Copyright (c) 2020-2024, Unitree Robotics.Co.Ltd. All rights reserved.
 ***********************************************************************/
 
-// From Unitree Lidar SDK 2, heavily modified
-
 #pragma once
 
+#include <cstdint>
+#include <vector>
+#include <cstring>
+
 #ifdef _WIN32
+#include <winsock2.h>
 #include <windows.h>
-#define socklen_t int
-typedef unsigned int uint32_t;
+typedef int socklen_t;
 #else
 #include <arpa/inet.h>
 #include <unistd.h>
 #define closesocket close
 #endif
-
-#include <vector>
-#include <cstring>
 
 /**
  * @brief UDP Handler
@@ -41,6 +40,11 @@ public:
 private:
     int sockfd_ = 0;
     unsigned short udp_port_ = 0;
+    
+#ifdef _WIN32
+    static bool wsa_initialized_;
+    static int wsa_ref_count_;
+#endif
 };
 
 /**

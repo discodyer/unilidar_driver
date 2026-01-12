@@ -92,7 +92,7 @@ void exampleProcess(UnitreeLidarReader *lreader){
             {
                 printf("A Cloud msg is parsed! \n");
                 printf("\tstamp = %f, id = %d\n", cloud.stamp, cloud.id);
-                printf("\tcloud size  = %ld, ringNum = %d\n", cloud.points.size(), cloud.ringNum);
+                printf("\tcloud size  = %llu, ringNum = %d\n", cloud.points.size(), cloud.ringNum);
                 printf("\tfirst 10 points (x,y,z,intensity,time,ring) = \n");
                 for (int i = 0; i < 10; i++)
                 {

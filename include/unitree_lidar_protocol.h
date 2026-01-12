@@ -61,6 +61,10 @@ namespace unilidar_sdk2{
 #define ACK_BLOCK_ERROR 4
 #define ACK_WAIT_ERROR 5    // data is not ready
 
+#define COMM_NONE 0
+#define COMM_SERIAL 1
+#define COMM_UDP 2
+
 ///////////////////////////////////////////////////////////////////////////////
 // FRAME HEADER & FRAME TAIL
 ///////////////////////////////////////////////////////////////////////////////
@@ -115,6 +119,7 @@ typedef struct
 
 /**
  * @brief Lidar calib param
+ * @note 32 bytes
  */
 typedef struct
 {
@@ -130,6 +135,7 @@ typedef struct
 
 /**
  * @brief Lidar Inside State
+ * @note 36 bytes
  */
 typedef struct
 {
@@ -150,7 +156,7 @@ typedef struct
 
 /**
  * @brief Lidar Point Data
- * @note 1012 bytes
+ * @note 1020 bytes
  */
 typedef struct 
 {
@@ -179,7 +185,7 @@ typedef struct
 
 /**
  * @brief Lidar Point Data Packet
- * @note 1036 bytes
+ * @note 1044 bytes
  */
 typedef struct
 {
@@ -194,7 +200,7 @@ typedef struct
 
 /**
  * @brief Lidar 2D Point Data
- * @note 5504 bytes
+ * @note 5512 bytes
  */
 typedef struct 
 {
@@ -221,7 +227,7 @@ typedef struct
 
 /**
  * @brief Lidar Point Data Packet
- * @note 5528 bytes
+ * @note 5536 bytes
  */
 typedef struct
 {
@@ -264,7 +270,7 @@ typedef struct
 
 /**
  * @brief Lidar IMU Data Packet
- * @note 156 bytes
+ * @note 80 bytes
  */
 typedef struct
 {
@@ -335,7 +341,7 @@ typedef struct
 
 /**
  * @brief Lidar IP Config
- * @note 16 bytes
+ * @note 20 bytes
  */
 typedef struct 
 {
@@ -349,7 +355,7 @@ typedef struct
 
 /**
  * @brief Lidar IP config packet
- * @note 40 bytes
+ * @note 44 bytes
  */
 typedef struct
 {
@@ -417,7 +423,7 @@ typedef struct
  */
 typedef struct 
 {
-    uint32_t cmd_type; //   0:null, 1:standby
+    uint32_t cmd_type;
     uint32_t cmd_value;
 }LidarUserCtrlCmd;
 
@@ -432,11 +438,59 @@ typedef struct
     FrameTail tail;
 }LidarUserCtrlCmdPacket;
 
+/////////////////////////////////////////////////////////////////////////
+// LIDAR COMMAND PACKET
+/////////////////////////////////////////////////////////////////////////
 
+/**
+ * @brief Lidar Command
+ * @note 8 bytes
+ */
+typedef struct 
+{
+    uint32_t cmd_type;
+    uint32_t cmd_value;
+}LidarCommand;
+
+/**
+ * @brief Lidar Command Packet
+ * @note 32 bytes
+ */
+typedef struct
+{
+    FrameHeader header;
+    LidarCommand data;
+    FrameTail tail;
+}LidarCommandPacket;
+
+/////////////////////////////////////////////////////////////////////////
+// LIDAR PARAMETER DATA PACKET
+/////////////////////////////////////////////////////////////////////////
+
+/**
+ * @brief Lidar Parameter Data
+ * @note 168 bytes (0xa8)
+ */
+typedef struct 
+{
+    uint64_t param_fields[21];  // 21 * 8 = 168 bytes
+    // Actual field structure to be determined from further analysis
+    // This is a placeholder based on analysis
+}LidarParamData;
+
+/**
+ * @brief Lidar Parameter Data Packet
+ * @note 196 bytes (0xc4)
+ */
+typedef struct
+{
+    FrameHeader header;
+    LidarParamData data;
+    FrameTail tail;
+}LidarParamDataPacket;
 
 #ifndef __EXTERN_C__
 }
 #endif
 
 #endif
-
