@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(unilidar_driver)
 
+set(SERIAL_INSTALL OFF CACHE BOOL "Disable serial library installation" FORCE)
+
 set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_CXX_FLAGS "-std=c++17")
 set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
