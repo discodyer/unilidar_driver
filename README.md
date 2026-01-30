@@ -8,7 +8,7 @@ Open source C++ driver for Unitree Lidar L2.
 
 ---
 
-**## ⚠️ Disclaimer**
+## ⚠️ Disclaimer
 
 **The code in this repository is for learning and research purposes only.**
 
@@ -20,7 +20,7 @@ Open source C++ driver for Unitree Lidar L2.
 
 ---
 
-**## TODO List**
+## TODO List
 
 - [x] Implement data packet transmission and reception
 - [x] Test UDP protocol communication on Linux
@@ -28,15 +28,15 @@ Open source C++ driver for Unitree Lidar L2.
 - [ ] Test Serial protocol communication on Linux
 - [ ] Test Serial protocol communication on Windows
 
-**## Build Instructions**
+## Build Instructions
 
-**### System Requirements**
+### System Requirements
 
 - Linux / Windows
 - GCC/G++ compiler
 - CMake 3.10 or higher
 
-**### Build Steps**
+### Build Steps
 
 ```bash
 # Cloning repository
@@ -55,9 +55,9 @@ make
 sudo make install
 ```
 
-**## Protocol Documentation**
+## Protocol Documentation
 
-**### Packet Structure**
+### Packet Structure
 
 The lidar communication uses a custom binary protocol. Each data packet has the following structure:
 
@@ -72,9 +72,9 @@ The lidar communication uses a custom binary protocol. Each data packet has the 
 | n+9 ~ n+10 | Reserve | 2 | Reserved field |
 | n+11 ~ n+12 | Footer | 2 | Fixed value `00 FF` |
 
-**## Known Command List**
+## Known Command List
 
-**### Command Reference Table**
+### Command Reference Table
 
 | Function | Packet Type Name | Packet Type ID | Packet Data Type | Command Type ID | Command Value | Description |
 |----------|-----------------|----------------|------------------|-----------------|---------------|-------------|
@@ -91,10 +91,10 @@ The lidar communication uses a custom binary protocol. Each data packet has the 
 | `sendRequestOfLidarVersion` | LIDAR_COMMAND_PACKET_TYPE | `0x7d0` | - | `4` | `0` | Request lidar version |
 | `sendRequestOfTimeDelay` | LIDAR_COMMAND_PACKET_TYPE | `0x7d0` | - | `6` | counter+1 | Request time delay (Response type: LIDAR_ACK_DATA_PACKET_TYPE) |
 
-**## License**
+## License
 
 BSD 3-Clause License
 
-**## Contributing**
+## Contributing
 
 Issues and Pull Requests are welcome.
