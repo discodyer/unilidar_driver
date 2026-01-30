@@ -1,7 +1,3 @@
-/**********************************************************************
- Copyright (c) 2020-2024, Unitree Robotics.Co.Ltd. All rights reserved.
-***********************************************************************/
-
 #include "udp_handler.h"
 #include "unitree_lidar_protocol.h"
 #include <stdio.h>
